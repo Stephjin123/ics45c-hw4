@@ -161,30 +161,30 @@ int String::indexOf(char c) const {
     return p == nullptr ? -1 : p - buf;
 }
 
-int String::indexOf(String s) const {
+int String::indexOf(const String &s) const {
     const char *p = strstr(buf, s.buf);
     return p == nullptr ? -1 : p - buf;
 }
 
 // ===================== comparison =====================
 
-bool String::operator==(String s) const { return strcmp(buf, s.buf) == 0; }
-bool String::operator!=(String s) const { return strcmp(buf, s.buf) != 0; }
-bool String::operator>(String s) const  { return strcmp(buf, s.buf) > 0; }
-bool String::operator<(String s) const  { return strcmp(buf, s.buf) < 0; }
-bool String::operator<=(String s) const { return strcmp(buf, s.buf) <= 0; }
-bool String::operator>=(String s) const { return strcmp(buf, s.buf) >= 0; }
+bool String::operator==(const String &s) const { return strcmp(buf, s.buf) == 0; }
+bool String::operator!=(const String &s) const { return strcmp(buf, s.buf) != 0; }
+bool String::operator>(const String &s) const  { return strcmp(buf, s.buf) > 0; }
+bool String::operator<(const String &s) const  { return strcmp(buf, s.buf) < 0; }
+bool String::operator<=(const String &s) const { return strcmp(buf, s.buf) <= 0; }
+bool String::operator>=(const String &s) const { return strcmp(buf, s.buf) >= 0; }
 
 // ===================== concatenation =====================
 
-String String::operator+(String s) const {
+String String::operator+(const String &s) const {
     String result(size() + s.size());
     strcpy(result.buf, buf);
     strcat(result.buf, s.buf);
     return result;
 }
 
-String &String::operator+=(String s) {
+String &String::operator+=(const String &s) {
     String result(size() + s.size());
     strcpy(result.buf, buf);
     strcat(result.buf, s.buf);
@@ -205,7 +205,7 @@ void String::read(istream &in) {
     swap(t);                           // t's destructor frees our old buf
 }
 
-ostream &operator<<(ostream &out, String s) {
+ostream &operator<<(ostream &out, const String &s) {
     s.print(out);
     return out;
 }
