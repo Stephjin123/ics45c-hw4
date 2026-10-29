@@ -130,8 +130,17 @@ void String::swap(String &s) {
     std::swap(buf, s.buf);
 }
 
-// s is already a copy; take its buf, and s's destructor frees our old one
-String &String::operator=(String s) {
+// copy assignment: make one exact-size copy, then swap it in;
+// temp's destructor frees our old array. Safe for s = s.
+String &String::operator=(const String &s) {
+    String temp(s);
+    swap(temp);
+    return *this;
+}
+
+// move assignment: s is about to die, so just exchange arrays;
+// s's destructor frees our old array. No allocation.
+String &String::operator=(String &&s) {
     swap(s);
     return *this;
 }
