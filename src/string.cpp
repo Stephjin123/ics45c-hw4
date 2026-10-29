@@ -107,6 +107,14 @@ String::String(const char *s)
 String::String(const String &s)
     : buf(strdup(s.buf)) {}
 
+// steal s's array; s is left with nullptr, which its destructor
+// can safely delete[]. buf must be set before swapping, otherwise
+// s would receive an uninitialized pointer.
+String::String(String &&s)
+    : buf(nullptr) {
+    swap(s);
+}
+
 // private: room for length chars plus '\0'; contents not initialized,
 // the caller must fill them in and terminate
 String::String(int length)

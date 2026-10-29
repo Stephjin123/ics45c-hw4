@@ -12,7 +12,7 @@ public:
     String(const String &s);
 
     // construct this string by moving from string s
-    // String(String &&s);
+    String(String &&s);
     // swap buf between this string and s using std::swap, explained later
     void swap(String &s);
 
